@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+#THIS CODE TURNS LINUX INTO A TCP CLIENT TO CONNECT TCP SERVER IN ORDER TO TEST PHYSICAL LAYER OF ETHERNET CHIP
+import socket
+import time
+
+#DEFINE IP AND PORT WHERE CLIENT HAS TO CONNECT TO
+TCP_IP = '169.254.102.173'   
+TCP_PORT = 1000
+#INSTANCE CLASS OF SOCKET
+s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#CLIENT  TRY TO CONNECT TO SERVER
+s.connect((TCP_IP, TCP_PORT))
+
+print("Conectado ao Servidor")
+#DATA SENT FROM CLIENT TO SERVER
+s.send(b"Data from Client")
+
+print("Sent from Client to Server: Data from Client")
+
+while True:
+	data = s.recv(1024)
+	#DATA RECEIVED BY CLIENT
+	print("Sent from Server to Client: ",data)
+	print("")
+	#AGAIN DATA SENT FROM CLIENT TO SERVER
+	print("Sent from Client to Server: Data from Client")
+	s.send(b"Data from Client")
+	time.sleep(1)
+
+
